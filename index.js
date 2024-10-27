@@ -24,18 +24,26 @@ const newDistanceKm = initialDistanceKm + (initialVelocityKmPerH * timeHours) //
 // Calculate remaining fuel
 const remainingFuelKg = initialFuelKg - (fuelBurnRateKgPerSec * timeSeconds)
 
-// Function call
-const newVelocityKmPerH = calcNewVelocity(accelerationMPerSec2, initialVelocityKmPerH, timeSeconds) //calculates new velocity based on acceleration
-
 // Pick up an error with how the function below is called and make it robust to such errors
 const calcNewVelocity = (acceleration, velocity, time) => { 
+  // Error handling
   if (typeof acceleration !== 'number' || typeof velocity !== 'number' || typeof time !== 'number') {
     throw new Error("All parameters must be numbers.");
   }
   if (acceleration < 0 || velocity < 0 || time < 0) {
     throw new Error("Parameters must be positive values.");
   }
+
+  // Convert initial velocity from km/h to m/s for consistent units in calculation
+  const initialVelocityMPerSec = convertKmPerHToMPerSec(velocity);
+  const newVelocityMPerSec = initialVelocityMPerSec + (acceleration * time); // velocity in m/s
+
+  // Convert new velocity back to km/h
+  return convertMPerSecToKmPerH(newVelocityMPerSec);
 }
+
+// Function call
+const newVelocityKmPerH = calcNewVelocity(accelerationMPerSec2, initialVelocityKmPerH, timeSeconds) //calculates new velocity based on acceleration
 
 console.log(`Corrected New Velocity: ${newVelocityKmPerH} km/h`);
 console.log(`Corrected New Distance: ${newDistanceKm} km`);
