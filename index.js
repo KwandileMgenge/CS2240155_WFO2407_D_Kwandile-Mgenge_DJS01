@@ -13,6 +13,9 @@ const initialDistanceKm = 0; // distance (km)
 const initialFuelKg = 5000; // remaining fuel (kg)
 const fuelBurnRateKgPerSec = 0.5; // fuel burn rate (kg/s)
 
+// Helper function to convert
+const convertKmPerHToMPerSec = (velocityKmPerH) => velocityKmPerH * (1000 / 3600); // km/h to m/s
+const convertMPerSecToKmPerH = (velocityMPerSec) => velocityMPerSec * (3600 / 1000); // m/s to km/h
 
 const newDistanceKm = initialDistanceKm + (initialVelocityKmPerH * timeSeconds) //calcultes new distance
 const remainingFuelKg = fuelBurnRateKgPerSec * timeSeconds //calculates remaining fuel
