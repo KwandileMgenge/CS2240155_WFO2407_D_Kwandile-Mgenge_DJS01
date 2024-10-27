@@ -19,9 +19,12 @@ const convertMPerSecToKmPerH = (velocityMPerSec) => velocityMPerSec * (3600 / 10
 
 // Calculate new distance (in km) with time in hours
 const timeHours = timeSeconds / 3600; // convert time to hours for distance calculation
-const newDistanceKm = initialDistanceKm + (initialVelocityKmPerH * timeSeconds) //calcultes new distance
+const newDistanceKm = initialDistanceKm + (initialVelocityKmPerH * timeHours) //calcultes new distance
 
-const remainingFuelKg = fuelBurnRateKgPerSec * timeSeconds //calculates remaining fuel
+// Calculate remaining fuel
+const remainingFuelKg = initialFuelKg - (fuelBurnRateKgPerSec * timeSeconds)
+
+// 
 const newVelocityKmPerH = calcNewVelocity(accelerationMPerSec2, initialVelocityKmPerH, timeSeconds) //calculates new velocity based on acceleration
 
 // Pick up an error with how the function below is called and make it robust to such errors
